@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Película: El Mono</title>
+  <style>        
+    /* Estilos generales */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #1e1e1e;
+      color: white;
+    }
+
+    /* Estilo del contenedor de la imagen */
+    .movie-poster {
+      position: relative;
+      display: inline-block;
+      overflow: hidden;
+      max-width: 600px;
+      border-radius: 30px;
+      width: 380px; /* Se ajusta el ancho al tamaño del contenedor */
+    }
+
+    /* Imagen de la película */
+    .movie-poster img {
+      width: 100%;
+      height: 460px;
+      transition: transform 0.5s ease, filter 0.3s ease;
+    }
+
+    /* Efecto cuando el cursor pasa sobre la imagen */
+    .movie-poster:hover img {
+      transform: scale(1.05);
+      filter: blur(3px) brightness(0.7);
+      border-radius: 30px;
+    }
+
+    /* Imagen superpuesta (ícono de play) */
+    .overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: none;
+      color: #FF2F28;
+      font-size: 3rem;
+    }
+
+    /* Mostrar la imagen superpuesta al pasar el cursor */
+    .movie-poster:hover .overlay {
+      display: block;
+    }
+
+    /* Estilos para el menú */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      background-color: #000000;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar .logo {
+      font-size: 32px;
+      font-weight: bold;
+      color: #FF2F28;
+    }
+
+    .navbar nav ul {
+      display: flex;
+      gap: 20px;
+      list-style-type: none;
+    }
+
+    .navbar nav ul li a {
+      color: white;
+      font-size: 18px;
+      padding: 10px;
+      transition: color 0.3s ease;
+      text-decoration: none;
+    }
+
+    .navbar nav ul li a:hover {
+      color: #FF2F28;
+    }
+
+    /* Menú hamburguesa */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 4px;
+    }
+
+    .hamburger .bar {
+      width: 25px;
+      height: 4px;
+      background-color: #fff;
+      border-radius: 4px;
+    }
+
+    /* Cuando el menú está activo (en móvil) */
+    .menu.active {
+      display: block;
+      position: absolute;
+      top: 50px; /* Distancia desde el top del menú hamburguesa */
+      left: 0;
+      background-color: #000;
+      width: 100%;
+      text-align: center;
+    }
+
+    @media (max-width: 768px) {
+      .navbar nav ul {
+        display: none;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .menu.active {
+        display: flex;
+      }
+
+      /* Ajuste del contenido de la película */
+      .content-wrapper {
+        flex-direction: column;
+        padding: 20px;
+        align-items: center;
+      }
+
+      .header-content {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .movie-details {
+        margin-left: 0;
+        text-align: center;
+      }
+
+      .synopsis p {
+        font-size: 16px; /* Ajustamos el tamaño del texto */
+        padding: 0 10px; /* Añadimos espacio a los lados */
+      }
+
+      .buttons button {
+        font-size: 1rem; /* Reducimos el tamaño del botón */
+        padding: 10px 15px;
+      }
+    }
+
+    /* Estilos para el contenido de la película */
+    .content-wrapper {
+      display: flex;
+      justify-content: flex-end;
+      padding: 20px;
+    }
+
+    .header-content {
+      display: flex;
+      padding: 20px;
+      align-items: flex-start;
+      justify-content: flex-start;
+    }
+
+    .movie-details {
+      margin-left: 20px;
+      flex-grow: 1;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #e6e6e6;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      color: #aaa;
+    }
+
+    .year, .genres, .rating {
+      font-size: 1rem;
+      margin-top: 10px;
+    }
+
+    .synopsis, .cast, .footer {
+      margin-top: 20px;
+    }
+
+    footer p {
+      font-size: 8px;
+      margin-top: 5px;
+    }
+
+    /* Estilo para los botones */
+    .buttons {
+      margin-top: 20px;
+    }
+
+    .buttons button {
+      background-color: #FF2F28;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1.2rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-right: 10px;
+    }
+
+    .buttons button:hover {
+      background-color: #e51c22;
+    }
+  </style>
+</head>
+<body>
+  <!-- Menú de Cineflix -->
+  <header class="navbar">
+    <div class="logo">Cineflix</div>
+    <nav>
+      <ul class="menu">
+        <li><a href="#">Inicio</a></li>
+        <li><a href="#">Películas</a></li>
+        <li><a href="#">Series</a></li>
+        <li><a href="#">Contactos</a></li>
+      </ul>
+      <!-- Botón del menú hamburguesa -->
+      <div class="hamburger" onclick="toggleMenu()">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Contenido de la película El Mono -->
+  <header>
+    <div class="content-wrapper">
+      <div class="header-content">
+        <div class="movie-poster">
+         <a href="https://play.cinehax.com/embed/tkW-g0fwO1HxEpU"><img src="https://www.lahiguera.net/cinemania/pelicula/11185/mufasa_el_rey_leon-cartel-12185.jpg" alt="El Mono"></a> 
+          <!-- Imagen superpuesta -->
+          <a href=""><div class="overlay">▶</div></a>
+        </div>
+        <div class="movie-details">
+          <h1>Mufasa</h1>
+          <p class="year">2025</p>
+          <p class="genres">Aventura, Comedia</p>
+          <p class="rating">⭐ 8.2/10</p>
+
+          <div class="cast">
+            <h3>Actores:</h3>
+            <p>Theo James, Tatiana Maslany, Christian, Convery Colin O'Brien...</p>
+          </div>
+
+          <div class="footer">
+            <h3>Director y más:</h3>
+            <p>Director: Stephen King</p>
+            <p>Escritor: James Wan</p>
+            <p>País: USA</p>
+            <p>Fecha de estreno: 2025</p>
+          </div>
+
+          <div class="synopsis">
+            <h3>Sinopsis:</h3>
+            <p>Tras la muerte de su padre, Simba deberá enfrentarse a su tío para recuperar el trono de Rey de la Selva. Timón y Pumba le acompañarán en su misión.</p>
+          </div>
+
+          <div class="buttons">
+            <button onclick="window.location.href='https://play.cinehax.com/embed/tkW-g0fwO1HxEpU'">VER AHORA</button>
+            <button onclick="window.location.href='https://www.youtube.com/embed/jYGUYAaqmlU?si=FHuz5N7schf3NW_q'">VER TRAILER</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <script>
+    // Función para mostrar/ocultar el menú hamburguesa
+    function toggleMenu() {
+      const menu = document.querySelector('.menu');
+      menu.classList.toggle('active');
+    }
+  </script>
+</body>
+</html>

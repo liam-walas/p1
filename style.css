@@ -1,0 +1,221 @@
+/* Estilos Generales */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+  
+body {
+    font-family: Arial, sans-serif;
+    color: #ffffff;
+    background-color: #141414;
+    line-height: 1.6;
+}
+  
+a {
+    text-decoration: none;
+    color: inherit;
+}
+  
+h1, h2, h3 {
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Menú de Navegación */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background-color: #000000;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar .logo {
+    font-size: 32px;
+    font-weight: bold;
+    color: #FF2F28;
+}
+
+.navbar nav ul {
+    display: flex;
+    gap: 20px;
+    list-style-type: none;
+}
+
+.navbar nav ul li a {
+    color: white;
+    font-size: 18px;
+    padding: 10px;
+    transition: color 0.3s ease;
+}
+
+.navbar nav ul li a:hover {
+    color: #FF2F28;
+}
+
+/* Menú hamburguesa */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 4px;
+}
+
+.hamburger .bar {
+    width: 25px;
+    height: 4px;
+    background-color: #fff;
+    border-radius: 4px;
+}
+
+/* Banner */
+.banner {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(175, 33, 33, 0.289) 100%), url('https://cloudfront-us-east-1.images.arcpublishing.com/infobae/4DPM42K2SNBQJIFZE7AKFJNOC4.jpg') center/cover no-repeat;
+    height: 550px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+}
+
+.banner-content h1 {
+    font-size: 60px;
+}
+
+.banner-content p {
+    font-size: 24px;
+    margin: 20px 0;
+}
+
+.banner button {
+    padding: 10px 30px;
+    font-size: 18px;
+    background-color: #FF2F28;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.banner button:hover {
+    background-color: #d42d24;
+}
+
+/* Sección de Contenido */
+.content-section {
+    padding: 50px 40px;
+}
+
+.content-section h2 {
+    font-size: 36px;
+    margin-bottom: 30px;
+}
+
+/* Estilos del botón Ver Más */
+.ver-mas-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px; /* Espacio entre las películas y el botón */
+}
+
+.ver-mas-btn {
+    padding: 10px 30px;
+    font-size: 18px;
+    background-color: #FF2F28;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    position: relative;  /* Habilita el ajuste con top */
+    top: -18px;
+}
+
+.ver-mas-btn:hover {
+    background-color: #d42d24; /* Cambio de color al pasar el mouse */
+}
+
+/* Contenedor de las películas con desplazamiento horizontal */
+.movies {
+    display: flex;
+    gap: 30px;
+    overflow-x: auto; /* Permite el desplazamiento horizontal */
+    padding-bottom: 10px; /* Añade espacio al final para facilitar el desplazamiento */
+    overflow-y: hidden;
+}
+
+.movie-card {
+    flex-shrink: 0; /* Evita que las tarjetas se encojan */
+    width: 230px;
+    background-color: #222222;
+    border-radius: 15px;
+    text-align: center;
+    transition: transform 0.3s ease;
+    height: 400px;
+}
+
+.movie-card img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.movie-card h3 {
+    padding: 15px;
+    font-size: 18px;
+    color: #FF2F28;
+    position: relative;
+    bottom: 8px;
+}
+
+.movie-card:hover {
+    transform: scale(1.05);
+}
+
+/* Footer */
+footer {
+    background-color: #000000;
+    color: #ffffff;
+    text-align: center;
+    padding: 20px;
+    margin-top: 50px;
+}
+
+/* Para pantallas más pequeñas */
+@media (max-width: 768px) {
+    /* Ocultar el menú en pantallas pequeñas */
+    .navbar nav ul {
+        display: none;
+        flex-direction: column;
+        gap: 10px;
+        position: absolute;
+        top: 60px; /* Ajuste dependiendo de la altura del header */
+        left: 0;
+        width: 100%;
+        background-color: #000;
+        padding: 20px;
+        text-align: center;
+    }
+
+    .navbar nav ul li a {
+        font-size: 20px;
+        padding: 15px;
+        text-align: center;
+    }
+
+    /* Mostrar el menú hamburguesa en pantallas pequeñas */
+    .hamburger {
+        display: flex;
+    }
+
+    .navbar nav.active ul {
+        display: flex;
+    }
+}
